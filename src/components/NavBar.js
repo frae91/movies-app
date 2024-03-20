@@ -1,8 +1,9 @@
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
+import { NavLink } from 'react-router-dom';
 
-export default function NavBar() {
+export default function NavBar({user, setUser}) {
 
     // Style for NavLink's active state
     const activeState = ({isActive}) => {
@@ -29,6 +30,32 @@ export default function NavBar() {
                             - Logout (if user is logged in)
                         
                         */}
+
+                        <Nav.Item className="mx-3">
+                            <NavLink to="/movies" style={activeState}>Movies</NavLink>
+                        </Nav.Item>
+
+                        {
+                        user
+                        ?
+                        <>
+                            <Nav.Item className="mx-3">
+                                <NavLink to="/faves" style={activeState}>Faves</NavLink>
+                            </Nav.Item>
+
+                            <Nav.Item className="mx-3">
+                                <button type="button" className="btn btn-default btn-sm" onClick={() => setUser(null)}>Logout</button>
+                                
+                            </Nav.Item>
+                        </>
+                        :
+                        <Nav.Item className="mx-3">
+                            <NavLink to="/login" style={activeState}>Login</NavLink>
+                        </Nav.Item>
+                        }
+
+                        
+                        
                     </Nav>
                 </Navbar.Collapse>
             </Container>
